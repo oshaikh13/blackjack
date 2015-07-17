@@ -8,14 +8,17 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> 
       @model.get('playerHand').hit()
-      if !@flipppedOnce
-        @model.get('dealerHand').first().flip()
-        @flipppedOnce = true
+
+      @flipHoleCard()
+      @checkScore()
+      @dealerDecision()
       
-      # @checkScore('playerHand')
-      # @checkScore('dealerHand')
     'click .stand-button': -> 
       @model.get('playerHand').stand()
+      
+      @flipHoleCard()
+      @checkScore()
+      @dealerDecision()
 
   initialize: ->
     # @checkScore('playerHand')
@@ -29,9 +32,21 @@ class window.AppView extends Backbone.View
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
-  checkScore: (string) ->
-    if @model.get('playerHand').scores()[1] > 21 then alert "u got rekt"
-    document.location.reload(true);
+  checkScore: ->
+    if @optimalScore(@model.get('playerHand').scores()) > 21
+      alert "u got rekt. new game starts?"
+      document.location.reload(true);
 
+  optimalScore: (arr) ->
+    optimalScore = arr[0];
+    if arr[1] <= 21
+      optimalScore = arr[1];
+    optimalScore
 
+  dealerDecision: ->
+    if @optimalScore(@model.get('dealerHand').scores()) <= 17 then @model.get('dealerHand').hit();
 
+  flipHoleCard: ->
+    if !@flipppedOnce
+      @model.get('dealerHand').first().flip()
+      @flipppedOnce = true
