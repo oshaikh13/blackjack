@@ -7,8 +7,11 @@ class window.AppView extends Backbone.View
 
   events:
     'click .hit-button': -> 
-      @model.get('playerHand').hit() 
-      @model.get('dealerHand').first().flip()
+      @model.get('playerHand').hit()
+      if !@flipppedOnce
+        @model.get('dealerHand').first().flip()
+        @flipppedOnce = true
+      
       # @checkScore('playerHand')
       # @checkScore('dealerHand')
     'click .stand-button': -> 
@@ -18,6 +21,7 @@ class window.AppView extends Backbone.View
     # @checkScore('playerHand')
     # @checkScore('dealerHand')
     @render()
+    @flipppedOnce = false;
 
   render: ->
     @$el.children().detach()
@@ -26,7 +30,8 @@ class window.AppView extends Backbone.View
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
   checkScore: (string) ->
-    if @model.get(string).scores()[1] > 21 then alert "#{string} get rekt"
+    if @model.get('playerHand').scores()[1] > 21 then alert "u got rekt"
+    document.location.reload(true);
 
 
 

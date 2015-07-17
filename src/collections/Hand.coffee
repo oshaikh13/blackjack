@@ -6,10 +6,9 @@ class window.Hand extends Backbone.Collection
 
 
   hit: ->
-    if !@isDealer
-      lastCard = @deck.pop()
-      @add(lastCard)
-      lastCard
+    lastCard = @deck.pop()
+    @add(lastCard)
+    lastCard
 
   stand: ->
     console.log "DOING NOTHING LOLLOLOL"
