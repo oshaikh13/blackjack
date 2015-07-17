@@ -1,1 +1,4 @@
-new AppView(model: new App()).$el.appendTo 'body'
+appModel = new App()
+game = appModel.get('game');
+
+new AppView(model: game).$el.appendTo 'body'
