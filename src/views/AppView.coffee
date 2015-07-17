@@ -9,7 +9,6 @@ class window.AppView extends Backbone.View
     'click .hit-button': -> 
       @model.get('playerHand').hit()
 
-      @flipHoleCard()
       @checkScore()
       @dealerDecision()
       

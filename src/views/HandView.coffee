@@ -24,7 +24,6 @@ class window.HandView extends Backbone.View
       @optimalScore = @collection.scores()[1];
 
     @$('.score').text @optimalScore
-    # @$('.score').text @optimalScore
 
 
 
