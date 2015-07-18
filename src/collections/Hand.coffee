@@ -10,7 +10,6 @@ class window.Hand extends Backbone.Collection
     lastCard
 
   stand: ->
-    console.log "DOING NOTHING LOLLOLOL"
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1

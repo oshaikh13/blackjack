@@ -18,7 +18,7 @@ class window.HandView extends Backbone.View
       new CardView(model: card).$el
 
     @optimalScore = @collection.scores()[0];
-    if @collection.scores()[1] < 21
+    if @collection.scores()[1] <= 21 and @collection.hasAce()
       @optimalScore = @collection.scores()[1];
 
     @$('.score').text @optimalScore

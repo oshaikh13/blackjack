@@ -38,8 +38,7 @@ class window.AppView extends Backbone.View
 
     if pHand > 21 or dHand > pHand and dHand <= 21 and dHand >= 17
       @startNewGame(false)
-
-    if dHand > 21 or dHand < pHand and pHand <= 21 and pHand >= 17
+    else if dHand > 21 and pHand <= 21
       @startNewGame(true)
 
 
@@ -51,8 +50,9 @@ class window.AppView extends Backbone.View
 
   dealerDecision: ->
     if @flipppedOnce
-      while @optimalScore(@model.get('dealerHand').scores()) <= 17
+      while @optimalScore(@model.get('dealerHand').scores()) < 17
         @model.get('dealerHand').hit();
+        @checkScore();
 
   flipHoleCard: ->
     if !@flipppedOnce
