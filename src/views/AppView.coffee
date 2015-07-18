@@ -65,7 +65,7 @@ class window.AppView extends Backbone.View
       alert "bruh u won niceeeeeeee"
 
     @$('.player-hand-container div').remove();
-    @$('.dealer-hand-container').remove();
+    @$('.dealer-hand-container div').remove();
 
     @createNewHands();
 
@@ -74,11 +74,11 @@ class window.AppView extends Backbone.View
     #document.location.reload(true);
 
   createNewHands: ->
-    debugger;
+
     @model.set 'playerHand', @model.get('deck').dealPlayer()
-    debugger;
+
     @model.set 'dealerHand', @model.get('deck').dealDealer()
-    debugger;
+
 
     console.log @model.get('deck')
 
