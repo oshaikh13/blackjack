@@ -50,7 +50,7 @@ class window.AppView extends Backbone.View
     optimalScore
 
   dealerDecision: ->
-    if !@flipppedOnce
+    if @flipppedOnce
       while @optimalScore(@model.get('dealerHand').scores()) <= 17
         @model.get('dealerHand').hit();
 
