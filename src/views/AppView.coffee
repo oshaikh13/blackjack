@@ -10,7 +10,6 @@ class window.AppView extends Backbone.View
       @model.get('playerHand').hit()
 
       @checkScore()
-      @dealerDecision()
       
     'click .stand-button': -> 
       @model.get('playerHand').stand()
@@ -31,21 +30,51 @@ class window.AppView extends Backbone.View
 
   checkScore: ->
 
-    @model.get('deck');
-
-    if pHand == 21
-      @startNewGame("what the tie")
-
-    if pHand == dHand
-      @startNewGame()
 
     pHand = @optimalScore(@model.get('playerHand').scores())
     dHand = @optimalScore(@model.get('dealerHand').scores())
 
-    if pHand > 21 or dHand > pHand and dHand <= 21 and dHand >= 17
-      @startNewGame(false)
-    else if dHand > 21 and pHand <= 21
-      @startNewGame(true)
+    if @flipppedOnce 
+      # Relative decisions for the player
+      if pHand > 21
+        @startNewGame(false)
+      else if pHand >= 17 and dHand > 21
+        @startNewGame(true)
+      else if pHand >= 17 and dHand >= 17
+        if pHand == dHand
+          @startNewGame('what the tie')
+        else if pHand > dHand 
+          @startNewGame(true)
+        else 
+          @startNewGame(false)
+      # Relative decisions for the dealer
+      else if dHand > 21
+        @startNewGame(true)
+      else if dHand >= 17 and pHand > 21
+        @startNewGame(false)
+    else 
+      if pHand > 21
+        @startNewGame(false)
+
+
+
+    # if pHand > 21
+    #   @startNewGame(false)
+
+    # if pHand == 21
+    #   @startNewGame(true)
+
+
+    # if @flipppedOnce
+    #   if pHand > 21 or dHand > pHand and dHand <= 21 and dHand >= 17
+    #     @startNewGame(false)
+    #   else if dHand > 21 and pHand <= 21 
+    #     @startNewGame(true)
+      
+    
+
+
+
 
 
   optimalScore: (arr) ->
@@ -58,7 +87,8 @@ class window.AppView extends Backbone.View
     if @flipppedOnce
       while @optimalScore(@model.get('dealerHand').scores()) < 17
         @model.get('dealerHand').hit();
-        @checkScore();
+      
+      @checkScore()
 
   flipHoleCard: ->
     if !@flipppedOnce
@@ -68,7 +98,7 @@ class window.AppView extends Backbone.View
   startNewGame: (wonGame)->
 
     if wonGame == "what the tie"
-      alert ""
+      alert "TIEEEE LOL SWEG GET SHREKTTTT 420 BLAZE IT"
 
     if !wonGame
       alert "u got rekt. new game starts?"
