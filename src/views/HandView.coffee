@@ -10,12 +10,10 @@ class window.HandView extends Backbone.View
 
     @optimalScore = 0
 
-    @dealerScore = 0
-    @playerScore = 0
-
   render: ->
     @$el.children().detach()
     @$el.html @template @collection
+
     @$el.append @collection.map (card) ->
       new CardView(model: card).$el
 

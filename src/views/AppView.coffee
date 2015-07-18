@@ -50,8 +50,9 @@ class window.AppView extends Backbone.View
     optimalScore
 
   dealerDecision: ->
-    while @optimalScore(@model.get('dealerHand').scores()) <= 17
-      @model.get('dealerHand').hit();
+    if !@flipppedOnce
+      while @optimalScore(@model.get('dealerHand').scores()) <= 17
+        @model.get('dealerHand').hit();
 
   flipHoleCard: ->
     if !@flipppedOnce
@@ -79,7 +80,7 @@ class window.AppView extends Backbone.View
 
     @model.set 'dealerHand', @model.get('deck').dealDealer()
 
-
+    @flipppedOnce = false
     console.log @model.get('deck')
 
 
