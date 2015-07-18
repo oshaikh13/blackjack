@@ -7,6 +7,7 @@ class window.AppView extends Backbone.View
 
   events:
     'click .hit-button': -> 
+      @checkDeckSize()
       @model.get('playerHand').hit()
 
       @checkScore()
@@ -45,12 +46,12 @@ class window.AppView extends Backbone.View
           @startNewGame('what the tie')
         else if pHand > dHand 
           @startNewGame(true)
-        else 
+        else
           @startNewGame(false)
       # Relative decisions for the dealer
       else if dHand > 21
         @startNewGame(true)
-      else if dHand >= 17 and pHand > 21
+      else if dHand >= 17
         @startNewGame(false)
     else 
       if pHand > 21
@@ -86,6 +87,7 @@ class window.AppView extends Backbone.View
   dealerDecision: ->
     if @flipppedOnce
       while @optimalScore(@model.get('dealerHand').scores()) < 17
+        @checkDeckSize()
         @model.get('dealerHand').hit();
       
       @checkScore()
@@ -97,13 +99,17 @@ class window.AppView extends Backbone.View
 
   startNewGame: (wonGame)->
 
+
+
     if wonGame == "what the tie"
       alert "TIEEEE LOL SWEG GET SHREKTTTT 420 BLAZE IT"
 
-    if !wonGame
+    else if !wonGame
       alert "u got rekt. new game starts?"
     else 
       alert "bruh u won niceeeeeeee"
+
+    @checkDeckSize();
 
     @$('.player-hand-container div').remove();
     @$('.dealer-hand-container div').remove();
@@ -124,7 +130,11 @@ class window.AppView extends Backbone.View
     console.log @model.get('deck')
 
 
-
+  checkDeckSize: ->
+    deckSize = @model.get('deck').length
+    if deckSize <= 1 
+      alert('OUTAA CARDS M9. We need a new D3CKXXX');
+      document.location.reload(true);
 
 
 
