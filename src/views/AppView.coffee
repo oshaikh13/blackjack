@@ -33,6 +33,12 @@ class window.AppView extends Backbone.View
 
     @model.get('deck');
 
+    if pHand == 21
+      @startNewGame("what the tie")
+
+    if pHand == dHand
+      @startNewGame()
+
     pHand = @optimalScore(@model.get('playerHand').scores())
     dHand = @optimalScore(@model.get('dealerHand').scores())
 
@@ -60,6 +66,10 @@ class window.AppView extends Backbone.View
       @flipppedOnce = true
 
   startNewGame: (wonGame)->
+
+    if wonGame == "what the tie"
+      alert ""
+
     if !wonGame
       alert "u got rekt. new game starts?"
     else 
