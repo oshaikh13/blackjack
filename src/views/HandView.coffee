@@ -15,7 +15,7 @@ class window.HandView extends Backbone.View
     @$el.html @template @collection
 
     @$el.append @collection.map (card) ->
-      new CardView(model: card).$el
+      new CardView(model: card).$el.css('background-image', 'url(img/cards/'+ card.attributes.rankName + '-' + card.attributes.suitName + '.png)')
 
     @optimalScore = @collection.scores()[0];
     if @collection.scores()[1] <= 21 and @collection.hasAce()

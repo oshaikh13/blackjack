@@ -102,12 +102,14 @@ class window.AppView extends Backbone.View
 
 
     if wonGame == "what the tie"
-      alert "TIEEEE LOL SWEG GET SHREKTTTT 420 BLAZE IT"
+      alert 'TIE LOL SWEG GET SHREKT BLAZE IT' 
+
 
     else if !wonGame
-      alert "u got rekt. new game starts?"
+      alert 'u lost m8. sux dusnt it' 
     else 
-      alert "bruh u won niceeeeeeee"
+      alert 'BRUH WTNICEEEE u won' 
+
 
     @checkDeckSize();
 
