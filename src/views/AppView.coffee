@@ -21,7 +21,7 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
-    @flipppedOnce = false;
+    @flippedOnce = false;
 
   render: ->
     @$el.children().detach()
@@ -35,7 +35,7 @@ class window.AppView extends Backbone.View
     pHand = @optimalScore(@model.get('playerHand').scores())
     dHand = @optimalScore(@model.get('dealerHand').scores())
 
-    if @flipppedOnce 
+    if @flippedOnce 
       # Relative decisions for the player
       if pHand > 21
         @startNewGame(false)
@@ -66,7 +66,7 @@ class window.AppView extends Backbone.View
     #   @startNewGame(true)
 
 
-    # if @flipppedOnce
+    # if @flippedOnce
     #   if pHand > 21 or dHand > pHand and dHand <= 21 and dHand >= 17
     #     @startNewGame(false)
     #   else if dHand > 21 and pHand <= 21 
@@ -84,18 +84,22 @@ class window.AppView extends Backbone.View
       optimalScore = arr[1];
     optimalScore
 
-  dealerDecision: ->
-    if @flipppedOnce
+  dealAndDecide: ->
+    if @flippedOnce
       while @optimalScore(@model.get('dealerHand').scores()) < 17
         @checkDeckSize()
         @model.get('dealerHand').hit();
       
-      @checkScore()
+  dealerDecision: ->
+    @dealAndDecide()
+    @checkScore()
+
+
 
   flipHoleCard: ->
-    if !@flipppedOnce
+    if !@flippedOnce
       @model.get('dealerHand').first().flip()
-      @flipppedOnce = true
+      @flippedOnce = true
 
   startNewGame: (wonGame)->
 
@@ -128,7 +132,7 @@ class window.AppView extends Backbone.View
 
     @model.set 'dealerHand', @model.get('deck').dealDealer()
 
-    @flipppedOnce = false
+    @flippedOnce = false
     console.log @model.get('deck')
 
 
@@ -137,6 +141,7 @@ class window.AppView extends Backbone.View
     if deckSize <= 1 
       alert('OUTAA CARDS M9. We need a new D3CKXXX');
       document.location.reload(true);
+    deckSize
 
 
 

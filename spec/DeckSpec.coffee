@@ -5,7 +5,9 @@ describe 'deck', ->
   hand = null
 
   beforeEach ->
+
     deck = new Deck()
+
     hand = deck.dealPlayer()
 
   describe 'hit', ->
