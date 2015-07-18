@@ -30,6 +30,9 @@ class window.AppView extends Backbone.View
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
   checkScore: ->
+
+    @model.get('deck');
+
     pHand = @optimalScore(@model.get('playerHand').scores())
     dHand = @optimalScore(@model.get('dealerHand').scores())
 
@@ -47,7 +50,8 @@ class window.AppView extends Backbone.View
     optimalScore
 
   dealerDecision: ->
-    if @optimalScore(@model.get('dealerHand').scores()) <= 17 then @model.get('dealerHand').hit();
+    while @optimalScore(@model.get('dealerHand').scores()) <= 17
+      @model.get('dealerHand').hit();
 
   flipHoleCard: ->
     if !@flipppedOnce
@@ -60,6 +64,34 @@ class window.AppView extends Backbone.View
     else 
       alert "bruh u won niceeeeeeee"
 
+    @$('.player-hand-container div').remove();
+    @$('.dealer-hand-container').remove();
+
     document.location.reload(true);
+
+  createNewHands: ->
+    @model.set 'playerHand', @model.get('deck').dealPlayer()
+    @model.set 'dealerHand', @model.get('deck').dealDealer()
+
+    console.log @model.get('deck')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
